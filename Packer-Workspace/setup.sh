@@ -32,7 +32,7 @@ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/
 
 sudo apt-get install -y mongodb-org 
 
-# install Node.js for version control
+# install GIT for version control
 
 echo "Installing GIT"
 
