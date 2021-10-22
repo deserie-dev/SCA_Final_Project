@@ -51,15 +51,15 @@ If you chose to configure Packer using Ansible, you first need to install it.
 
 3. Log into the Google Cloud Console and create a new project. Select your project and open it.
 
-4. Create a custom service account for Packer and assign it Compute Instance Admin (v1) & Service Account User roles and save.
+4. Go to*IAM and ADMIN* and create a custom service account for Packer and assign it Compute Instance Admin (v1) & Service Account User roles and save.
 
-![](/images/serviceaccount.png)
+![](/images/serviceaccount.jpg)
 
 4. Generate a JSON Key and download it.
 
 5. Set the environment variable GOOGLE_APPLICATION_CREDENTIALS to point to the path where you saved your service account key.
 
-![](/images/setcreds.png)
+![](/images/setcreds.jpg)
 
 6. Create a packer template using JSON or HCL.
 
@@ -75,11 +75,34 @@ If you chose to configure Packer using Ansible, you first need to install it.
   packer build packer.json
 ```
 
-![](/images/terminalimage.png)
+![](/images/terminalimage.jpg)
 
 9. To check that your image has been successully built, you can try to create a virtual machine using the image
 
-![](/images/consoleimage.png)
+![](/images/consoleimage.jpg)
+
+</p></details>
+
+<details>
+<summary><b>Create a Google Compute Instance Using Custom Packer Machine Image</b></summary><p>
+
+1. In order to use the custom machine image we just created using Packer, inside the GCP console, go to _Compute Engine_ and select _VM Instances_
+
+![](/images/menu.png)
+
+2. Click on _Create Instance_
+
+![](/images/create.png)
+
+3. Name your instance. Under _Boot Disk_ click on _CHANGE_
+
+4. Go to _Custom Images_, select your project, and from the dropdown menu under _image_ select the machine image your created using Packer. Click _Select_
+
+![](/images/custom.png)
+
+5. Select any other desired configurations and click _Create_
+
+![](/images/vm.png)
 
 </p></details>
 
