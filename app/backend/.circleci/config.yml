@@ -11,7 +11,8 @@ jobs:
     working_directory: ~/SCA_Final_Project/app/backend/circleci
 
     steps:
-      - checkout
+      - checkout:
+          path: ~/SCA_Final_Project
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: echo "Running tests"
