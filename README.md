@@ -72,6 +72,12 @@ Open http://localhost:3000 to view it in the browser. You will see the following
   ![](/images/test.png)
 ```
 
+8. Signup for a [CircleCI] account if you don't already have one and sync it with your GitHub account.
+
+9. Inside your project create a folder called _.circleci_ and inside make a file called _config.yml_
+
+10. When you sign in you will see all the repositories that are in your GitHub inside the CircleCI dashboard. Find the project you want to test and click _Set Up Project_
+
 </p></details>
 
 <details>
