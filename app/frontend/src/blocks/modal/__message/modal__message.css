@@ -1,0 +1,17 @@
+.modal__message {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29.05px;
+  margin-bottom: 60px;
+  margin-top: 0;
+  padding: 0;
+  text-align: center;
+  width: 358px;
+}
+
+@media (max-width: 480px) {
+  .modal__message {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}

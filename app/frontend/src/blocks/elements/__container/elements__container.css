@@ -1,0 +1,23 @@
+.elements__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  /* grid-template-columns: repeat(3, 282px); */
+  row-gap: 20px;
+  column-gap: 17px;
+  list-style: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 1024px) {
+  .elements__container {
+    grid-template-columns: repeat(auto-fit, 282px);
+  }
+}
+
+/* Once I used JavaScript to render images, this property stopped working: 
+   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr)); 
+   The <ul> tag had lost its styling. Also had to add media query*/

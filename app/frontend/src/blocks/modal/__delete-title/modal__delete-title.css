@@ -1,0 +1,19 @@
+.modal__delete-title {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+  /* margin-bottom: 0;
+  margin-top: 34px;
+  max-width: 358px; */
+}
+
+@media screen and (max-width: 425px) {
+  .modal__delete-title {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 75px 0;
+    /* max-width: 200px; */
+  }
+}

@@ -1,0 +1,15 @@
+.modal__icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  height: 120px;
+  width: 120px;
+  margin-bottom: 32px;
+  margin-top: 60px;
+}
+
+@media (max-width: 480px) {
+  .modal__icon {
+    margin-bottom: 40px;
+  }
+}

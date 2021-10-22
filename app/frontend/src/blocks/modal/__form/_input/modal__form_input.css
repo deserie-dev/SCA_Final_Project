@@ -1,0 +1,16 @@
+.modal__form_input {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background-color: black;
+  color: #fff;
+  font-size: 14px;
+  line-height: 16px;
+  margin-bottom: 30px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  width: 358px;
+}
+
+::placeholder {
+  color: #ccc;
+}

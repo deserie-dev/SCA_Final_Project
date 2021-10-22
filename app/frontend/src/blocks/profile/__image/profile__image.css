@@ -1,0 +1,24 @@
+.profile__image {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  height: 120px;
+  margin: 0;
+  padding: 0;
+  width: 120px;
+}
+
+.profile__image:hover + .profile__image-edit {
+  opacity: 1;
+}
+
+.profile__image:hover {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 1024px) {
+  .profile__image {
+    margin: 0px auto 30px auto;
+  }
+}

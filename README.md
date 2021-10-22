@@ -1,9 +1,5 @@
 # She Code Africa Final Project
 
-👇 **_Live Project Deployed On Google Cloud Platform_** 👇
-
-[Around The World](https://deserie.students.nomoreparties.site/)
-
 ## A Brief Overview of the Application
 
 Around The US is a photo sharing web application. Once registered using an email address and password, users can login and edit their profile information, profile picture, and can upload pictures from the web.
@@ -24,22 +20,38 @@ This project began as one of the projects I did in my FullStack Developer Bootca
 
 **SSL Certificate -** Let's Encrypt
 
+## Running the Project Locally
+
+Navigate to the frontend directory and run the following commands which will install the project's dependencies and start the app in the development mode:
+
+```
+npm install
+npm start
+```
+
+Open http://localhost:3000 to view it in the browser. You will see the following login screen:
+
+![](/images/login.png)
+
 ## In-depth
-
-<details>
-<summary><b>Prerequisites</b></summary><p>
-A Google Cloud Platform account. This project is built using services in the free tier.
-
-</p></details>
 
 <details>
 <summary><b>Build A Custom Machine Image Using Packer</b></summary><p>
 
-1. Download and install Packer.
+1. [Download and install Packer](https://www.packer.io/downloads)
+2. Packer has many different provisioners including Chef and Puppet. For this project, I have provided two different Packer templates - one using the using the [Windows Shell Provisioner](https://www.packer.io/docs/provisioners/windows-shell), and one using the [Ansible Provisioner](https://www.packer.io/docs/provisioners/ansible/ansible).
 
-2. Log into the Google Cloud Console and create a new project. Select your project and open it.
+Both the provided ansible playbook and Bash script do the same thing - install software like Nodejs and MongoDB onto our custom machine image that our application needs to run. You can find both templates inside the packer directory.
 
-3. Create a custom service account for Packer and assign it Compute Instance Admin (v1) & Service Account User roles and save.
+If you chose to configure Packer using Ansible, you first need to install it.
+
+- [Download and Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#selecting-an-ansible-version-to-install)
+
+- [Download and Install Ansible on Windows](https://phoenixnap.com/kb/install-ansible-on-windows)
+
+3. Log into the Google Cloud Console and create a new project. Select your project and open it.
+
+4. Create a custom service account for Packer and assign it Compute Instance Admin (v1) & Service Account User roles and save.
 
 ![](/images/serviceaccount.png)
 
@@ -111,7 +123,7 @@ In order for Terraform to be able to provision the infrastructure needed for thi
 
 Add a Dockerfile to the directory to the root of the frontend, and the root of the backend, then configure the lines as described below.
 
-**Line 1:** We will use the alpine version of Node since it is lightweight
+**Line 1:** "FROM" tells Docker what base image to use as a starting point. For this project, we will use the alpine version of Node since it is lightweight.
 
 ```
   FROM node:12-alpine3.14
@@ -129,7 +141,7 @@ Add a Dockerfile to the directory to the root of the frontend, and the root of t
   COPY package.json /frontend
 ```
 
-**Lines 4:** Run the command "npm install" to install all the projects dependencies which are listed in the package.json file.
+**Lines 4:** "RUN" executes commands inside the container. Here we use it to install all the projects dependencies which are listed in the package.json file.
 
 ```
   RUN npm install
@@ -156,6 +168,15 @@ Add a Dockerfile to the directory to the root of the frontend, and the root of t
 The finished Dockerfile for the frontend should look like this:
 
 The finished Dockerfile for the backend should look like this:
+
+Create a file called .dockerignore. This file is similar to a .gitignore file and lets us ignore files or folders that should not be included in the final Docker build.
+
+```
+  node_modules
+  .git
+  .gitignore
+
+```
 
 </p></details>
 

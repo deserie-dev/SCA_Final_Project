@@ -1,0 +1,33 @@
+@import url("./__container/modal__container.css");
+@import url("./__container/_preview/modal__container_preview.css");
+@import url("./__title/modal__title.css");
+@import url("./__form/modal__form.css");
+@import url("./__image/modal__image.css");
+@import url("./__form-control/modal__form-control.css");
+@import url("./__form-control/_error/modal__form-control_error.css");
+@import url("./__close-button/modal__close-button.css");
+@import url("./__close-button/_type/_image/modal__close-button_type_image.css");
+@import url("./__image-title/modal__image-title.css");
+@import url("./__error/modal__error.css");
+@import url("./__form-submit/modal__form-submit.css");
+@import url("./__form-submit/_disabled/modal__form-submit_disabled.css");
+@import url("./__title/_type/modal__title_type_delete.css");
+@import url("./__form-delete/modal__form-delete.css");
+@import url("./__link/modal__link.css");
+@import url("./__icon/modal__icon.css");
+@import url("./__message/modal__message.css");
+
+.modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* display: none; */
+  visibility: hidden;
+  opacity: 0;
+  transition: visiblity 0s linear 0.5s, opacity 0.5s linear;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}

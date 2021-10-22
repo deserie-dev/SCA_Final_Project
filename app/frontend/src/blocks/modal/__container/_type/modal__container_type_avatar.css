@@ -1,0 +1,11 @@
+.modal__container_type_avatar {
+  min-width: 430px;
+  min-height: 330px;
+}
+
+@media screen and (max-width: 650px) {
+  .modal__container_type_avatar {
+    min-width: 240px;
+    min-height: 258px;
+  }
+}

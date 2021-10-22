@@ -1,0 +1,12 @@
+.modal__form_container {
+  margin: 0 auto;
+  max-width: 880px;
+  min-height: 100vh;
+  padding: 60px 0 0;
+}
+
+@media (max-width: 768px) {
+  .modal__form_container {
+    padding: 40px 30px 0px;
+  }
+}

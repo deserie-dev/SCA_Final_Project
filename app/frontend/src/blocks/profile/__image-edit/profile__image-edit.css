@@ -1,0 +1,22 @@
+.profile__image-edit {
+  background: transparent;
+  border-radius: 50%;
+  border: none;
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.profile__image-edit:hover {
+  background-image: url("../../../images/edit.svg");
+  background-color: rgba(0, 0, 0, 0.8);
+  background-size: 26px 26px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+}

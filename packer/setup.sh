@@ -37,3 +37,9 @@ sudo apt-get install -y mongodb-org
 echo "Installing GIT"
 
 sudo apt -y install git 
+
+## install PM2 to keep app running in the background
+
+echo "Installing PM2"
+
+sudo npm install pm2 -g 

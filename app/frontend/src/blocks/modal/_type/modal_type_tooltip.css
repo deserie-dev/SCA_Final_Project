@@ -1,0 +1,13 @@
+.modal_type_tooltip {
+  align-items: center;
+  padding: 60px 32px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+@media (max-width: 480px) {
+  .modal_type_tooltip {
+    padding: 50px 18px;
+  }
+}

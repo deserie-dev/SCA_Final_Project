@@ -1,0 +1,19 @@
+@import url("./_container/modal__form_container.css");
+@import url("./_heading/modal__form_heading.css");
+@import url("./_input/modal__form_input.css");
+@import url("./_submit/modal__form_submit.css");
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto 0px auto;
+  width: 358px;
+}
+
+@media screen and (max-width: 425px) {
+  .popup__form {
+    width: calc(100% - 44px);
+  }
+}

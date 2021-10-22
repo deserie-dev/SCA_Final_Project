@@ -1,0 +1,10 @@
+.modal__container_type_delete {
+  min-width: 430px;
+  min-height: 181px;
+}
+
+@media screen and (max-width: 650px) {
+  .modal__container_type_delete {
+    min-width: 240px;
+  }
+}

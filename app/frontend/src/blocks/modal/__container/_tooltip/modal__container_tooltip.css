@@ -1,0 +1,10 @@
+.modal__container_tooltip {
+  max-width: 530px;
+  height: 330px;
+}
+
+@media screen and (max-width: 550px) {
+  .modal__container_tooltip {
+    width: 100%;
+  }
+}

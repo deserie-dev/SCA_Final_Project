@@ -1,0 +1,10 @@
+.modal__title_type_avatar {
+  margin-bottom: 54px;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 650px) {
+  .pmodal__title_type_avatar {
+    margin-bottom: 36px;
+  }
+}

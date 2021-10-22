@@ -1,0 +1,21 @@
+@import url("./_visible/elements__delete-button_visible.css");
+@import url("./_hidden/elements__delete-button_hidden.css");
+
+.elements__delete-button {
+  background: url(../../../images/deleteButton.svg);
+  border: none;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  position: absolute;
+  padding: 0px 0px 0px 0px;
+  margin: 18px -30px;
+  width: 18px;
+  height: 19.3px;
+  background-color: transparent;
+  /* display: none; */
+}
+
+.elements__delete-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
