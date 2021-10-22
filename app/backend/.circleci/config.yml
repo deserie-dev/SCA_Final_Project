@@ -8,11 +8,10 @@ jobs:
     docker:
       - image: circleci/node:12.16.0
 
-    working_directory: ~/SCA_Final_Project/app/backend
+    working_directory: ~/SCA_Final_Project/app/backend/circleci
 
     steps:
-      - checkout:
-            path: ~/SCA_Final_Project
+      - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: echo "Running tests"
