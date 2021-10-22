@@ -7,8 +7,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:12.16.0
-
-    working_directory: ~/SCA_Final_Project/app/backend/circleci
+    working_directory: ~/SCA_Final_Project/app/backend
 
     steps:
       - checkout:
