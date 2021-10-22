@@ -36,6 +36,45 @@ Open http://localhost:3000 to view it in the browser. You will see the following
 ## In-depth
 
 <details>
+<summary><b>Use Travis CI to Testing</b></summary><p>
+
+1. Inside the backend directory we will write unit tests for some the Express routes. For testing HTTP calls we can use of a Node module called SuperTest and the testing framework Jest.
+
+```
+  npm install supertest jest
+```
+
+2. Inside package.json, under "Scripts," add the following script
+
+```
+  "test": "jest"
+```
+
+3. Create a folder called test in the root of the backend directory. Inside the test folder create a file called test.js for writing the unit tests.
+
+4. First import the supertest module into the test.js file.
+
+```
+  const request = require('supertest');
+```
+
+5. Create the tests (see backend/test/test.js)
+
+6. Run
+
+```
+  npm test
+```
+
+7. You should see something like this
+
+```
+  ![](/images/test.png)
+```
+
+</p></details>
+
+<details>
 <summary><b>Build A Custom Machine Image Using Packer</b></summary><p>
 
 1. [Download and install Packer](https://www.packer.io/downloads)
