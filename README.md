@@ -1,33 +1,8 @@
 # She Code Africa Final Project
 
-# Create A Pipeline For A MERN App
+This project contains 2 different CI/CD pipelines for a 3 tier MERN aaplication.
 
-This project has 2 pipelines depicted as follows
-
-Making use of a variety of tools we've learned over last few months in the bootcamp.
-
-## A Brief Overview of the Application
-
-Around The US is a photo sharing web application. Once registered using an email address and password, users can login and edit their profile information, profile picture, and can upload pictures from the web.
-
-This project began as one of the projects I did in my FullStack Developer Bootcamp with YPracticum.
-
-## Technologies Used
-
-**Frontend -** React
-
-**Backend -** Node.js.
-
-**Authentication -** JSON Web Tokens
-
-**Database -** MongoDB
-
-**Reverse-Proxy server** - NGINX
-
-**SSL Certificate -** Let's Encrypt
-
-<details>
-<summary><b>The Application</b></summary><p>
+# The Application
 
 Live Site deployed onto Google Cloud Platform:
 
@@ -35,7 +10,7 @@ Live Site deployed onto Google Cloud Platform:
 
 [API](https://api.deserie.students.nomoreparties.site/signin)
 
-This is a 3-tier application with a frontend, API and database. Inside the app/ directory are seperate folders for the app's React based frontend, and Node, Express based backend. Each has its own package.json file.
+This is a 3-tier application with a frontend, API and database. Inside the app/ directory are seperate folders for the app's React based frontend, and Node, Express based backend.
 
 Functionalities:
 
@@ -64,7 +39,19 @@ Open http://localhost:3000 to view it in the browser. You will see the following
 
 ![](/images/login.png)
 
-</p></details>
+## Technologies Used
+
+**Frontend -** React
+
+**Backend -** Node.js.
+
+**Authentication -** JSON Web Tokens
+
+**Database -** MongoDB
+
+**Reverse-Proxy server** - NGINX
+
+**SSL Certificate -** Let's Encrypt
 
 # PIPELINE 1
 
@@ -229,7 +216,7 @@ If you chose to configure Packer using Ansible, you first need to install it.
 
 # PIPELINE 2
 
-This pipeline is centered around Docker.
+This pipeline is centered around Docker. We will begin by creating Docker images for the frontend and the backend. For the database, we will pull a publicly available image of MongoDB from Docker Hub. We will then use Docker Compose to spin up the containers.
 
 TECHNOLOGIES USED IN PIPELINE 2:
 
@@ -256,16 +243,16 @@ Add a Dockerfile to the directory to the root of the frontend, and the root of t
   FROM node:12-alpine3.14
 ```
 
-**Line 2:** Set the working directory in the container to /frontend or /backend. This directory is where all our code files will be stored inside the container, as well as where we'll run npm install, and launch the application:
+**Line 2:** Set the working directory in the container to /usr/src/app. This directory is where all our code files will be stored inside the container, as well as where we'll run npm install, and launch the application:
 
 ```
-  WORKDIR /frontend
+  WORKDIR /usr/src/app
 ```
 
-**Lines 3:** Copy the package.json file into the /frontend or /backend directory in the container.
+**Lines 3:** Copy the package.json file into the current working directory inside the container, represented by ".".
 
 ```
-  COPY package.json /frontend
+  COPY ./package.json ./
 ```
 
 **Lines 4:** "RUN" executes commands inside the container. Here we use it to install all the projects dependencies which are listed in the package.json file.
@@ -274,27 +261,17 @@ Add a Dockerfile to the directory to the root of the frontend, and the root of t
   RUN npm install
 ```
 
-**Line 5:** Copy over all the rest of the projects files and folders into /frontend or /backend folders inside the container.
+**Line 5:** Copy over all the rest of the projects files and folders.
 
 ```
-  COPY . /app
+  COPY . .
 ```
 
 **Line 6:** This line describes the command that should be executed when the Docker image is launching. The package.json files of both the frontend and backend, both already contain a start script which we call here.
 
 ```
-  CMD npm run start
+  CMD ["npm "start"]
 ```
-
-**Line 7:** Expose port 8081 to the outside once the container has launched.
-
-```
-  EXPOSE 8081
-```
-
-The finished Dockerfile for the frontend should look like this:
-
-The finished Dockerfile for the backend should look like this:
 
 Create a file called .dockerignore. This file is similar to a .gitignore file and lets us ignore files or folders that should not be included in the final Docker build.
 
@@ -305,14 +282,85 @@ Create a file called .dockerignore. This file is similar to a .gitignore file an
 
 ```
 
+Once the Dockerfiles have been created, run the following command to build the images:
+
+To create the image for the frontend:
+
+```
+  docker build -t "react-app" .
+```
+
+To create the image for the backend:
+
+```
+  docker build -t "api-server" .
+```
+
+![](/images/reactimage.png)
+
+![](/images/bimage2.png)
+
+To confirm both images have been created run
+
+```
+  docker images
+```
+
+![](/images/dockerimages.png)
+
 </p></details>
 
 <details>
 <summary><b>Use Docker Compose in Development Workflow</b></summary><p>
 
+Create a Docker Compose file.
+
+The first line specifies which version of the Docker Compose API we want to use
+
+```
+  version: "3"
+```
+
+We now define a set of services. Our application has 3 services - the react-app clientm the api-server, and MongoDB database. Each of these services requires us to specify an image tag. We will use the images we just built which have the tags "react-app" and "api-server". Fot the database, we will pull a MongoDB image from Docker Hub. Define ports for each service.
+
+For the react-app service, we will add the following option to keep the frontend container alive and listening for requests:
+
+```
+  stdin_open: true
+```
+
+Since the Express service needs to connect to MongoDB, we'll specify the following option to ensure the containers start in the right order:
+
+```
+  depends_on:
+    mongo
+```
+
+Name the network _mern app_ which uses the default driver. It will allow the services to communicate with each other.
+
+```
+  networks:
+    mern-app:
+      driver: bridge
+```
+
+Lastly add a volume to enable persistence of the database data, so the data in the database will not get deleted when the app restarts.
+
+Now run the following command to start up all 3 containers, as well as attch the network and volume resources:
+
+```
+  docker compose up
+```
+
 Execution of _docker-compose up_
 
-![](/images/vm.png)
+![](/images/composeup.png)
+
+![](/images/compose.png)
+
+Now if you go to localhost: 3000 you should be able to see the application running.
+
+![](/images/compose2.png)
 
 </p></details>
 
@@ -407,7 +455,7 @@ In order for Terraform to be able to provision the infrastructure needed for thi
 
 </p></details>
 
-## Key Learnings
+# Key Learnings
 
 CI/CD is an integral part of any modern environment that follows the Agile methodology.
 Through pipelines, you can ensure a smooth transition of code from the version control system to the target environment (testing/staging/production/etc.) while applying all the necessary testing and quality control practices.
