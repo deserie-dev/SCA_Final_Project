@@ -1,14 +1,14 @@
 FROM node:alpine3.14
 # sets working directory. All commands will be run in here
-WORKDIR /backend
+WORKDIR /usr/src/app
 # copy package into current directory, which is /backend
-COPY package.json ./
+COPY ./package.json ./
 # install dependencies
 RUN npm install
-#take evry single single file inside directory, src code & all, and put inside /backend
+#take evry single file inside directory, src code & all, and put inside /backend
 COPY . .
 # node is listening on 3000
-EXPOSE 3000
+EXPOSE 5000
 # tell container what command to run
 CMD ["npm "start"]
 

@@ -20,12 +20,6 @@
     "predeploy": "npm run build",
     "deploy": "npm run build && scp -r ./build/* deserie_dev@deserie.students.nomoreparties.site:/home/deserie_dev/react-around-api-full/frontend"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",

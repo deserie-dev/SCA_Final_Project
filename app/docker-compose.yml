@@ -1,0 +1,37 @@
+version: "3"
+services:
+  react-app:
+    image: react-app
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    networks:
+      - mern-app
+  api-server:
+    image: api-server
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:3.6.19-xenial
+    ports:
+      - "27017:27017"
+    networks:
+      - mern-app
+    volumes:
+      - mongo-data:/data/db
+networks:
+  mern-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
+# run: docker-compose up - this will start all 3 containers and attach network and volume resources
+# run docker ps to see the containers running
+# go to localhost 3000 and should be able to see the app
+# our app is made up of 3 services, the react app client, express api server and mongodb database
+# each of these services require us to specify an image tag
+# for database willl use a publicly available mongodb image from dockerhub
