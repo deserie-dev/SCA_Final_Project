@@ -420,6 +420,105 @@ https://www.jenkins.io/doc/book/pipeline/docker/
 
 </p></details>
 
+</p></details>
+
+<details>
+<summary><b>Push Docker Images to Google Container Registry</b></summary><p>
+
+We have successfully built a Docker images react-app and api-server and now we need to push the images to Google Container Registry, so that they can be deployed from other locations, such as GKE.
+
+First, configure the local Docker client to be able to authenticate to Container Registry
+
+```
+  export PROJECT_ID="$(gcloud config get-value project -q)"
+  gcloud auth configure-docker
+```
+
+Next, tag the local Docker images for uploading:
+
+```
+  docker tag react:latest "gcr.io/${PROJECT_ID}/react-app:v1"
+```
+
+Finally, push the Docker image to the Container Registry:
+
+```
+  docker push "gcr.io/${PROJECT_ID}/react-app:v1"
+```
+
+![](/images/push1.png)
+
+![](/images/push2.png)
+
+For the MongoDB database container, we will pull a publicly available mongo image from Docker Hub. I used the Google Cloud Shell for this task:
+
+```
+  docker pull mongo
+  docker tag mongo gcr.io/{PROJECT-ID}/mongo:latest
+  docker push gcr.io/{PROJECT-ID}/mongo:latest
+```
+
+![](/images/mongopull.png)
+
+![](/images/push3.png)
+
+</p></details>
+
+<details>
+<summary><b>Create A GKE Autopilot Cluster</b></summary><p>
+
+Here we create a Google Kubernetes Engine (GKE) cluster in Autopilot mode. The Autopilot mode of operation means that Google takes care of node management and infrastructure. GKE provisions, configures, and manages the resources and hardware for you.
+
+Here we'll go through 2 different ways to create a Google Kubernetes Engine Autopilot Cluster.
+
+**Create a GKE Autopilot Cluster Using gcloud command-line tool**
+
+Prerequisites
+
+1. Enable the Google Kubernetes Engine API.
+
+2. Install the Google Cloud SDK.
+
+3. Set up default gcloud settings using glcoud init or gcloud config.
+
+To create the cluster, run the following command:
+
+```
+gcloud container clusters create-auto CLUSTER_NAME \
+    --region REGION \
+    --project=PROJECT_ID
+```
+
+![](/images/gcloud.png)
+
+**Create a GKE Autopilot Cluster Using Google Cloud Console**
+
+1. Go to the Google Kubernetes Engine page in the Cloud Console.
+
+2. Go to Google Kubernetes Engine
+
+3. Click Create.
+
+![](/images/create1.png)
+
+4. In the Autopilot section, click Configure.
+
+![](/images/create2.png)
+
+5. Enter the Name for your cluster.
+
+![](/images/create3.png)
+
+6. Select a region for your cluster.
+
+7. Choose a public or private cluster.
+
+8. Click Create.
+
+![](/images/clusters.png)
+
+</p></details>
+
 <details>
 <summary><b>Launch A GCP Virtual Machine from Custom Machine Image Using Terraform</b></summary><p>
 
@@ -451,7 +550,7 @@ In order for Terraform to be able to provision the infrastructure needed for thi
   terraform apply
 ```
 
-8. To confirm the instane was created, inside the GCP console, go to "Compute Engine" and you should see your instance insce the VM Instances dasboard.
+8. To confirm the instance was created, inside the GCP console, go to "Compute Engine" and you should see your instance insce the VM Instances dasboard.
 
 </p></details>
 
