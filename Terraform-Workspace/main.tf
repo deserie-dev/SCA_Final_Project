@@ -2,15 +2,14 @@ terraform {
   required_providers {
     google = {
       source = "hashicorp/google"
-      version = "3.5.0"
+      version = "3.80.0"
     }
   }
 }
 
 provider "google" {
-  project = "sca-final-project-329413"
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  project = var.gcp_project_id
+  region  = var.gcp_project_region
 }
 
 resource "google_compute_instance" "appserver" {
@@ -19,7 +18,7 @@ resource "google_compute_instance" "appserver" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-9"
+      image = "ubuntu-os-cloud/ubuntu-1804-lts"
     }
   }
  network_interface {

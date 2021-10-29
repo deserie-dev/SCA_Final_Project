@@ -1,6 +1,6 @@
 # She Code Africa Final Project
 
-This project contains 2 different CI/CD pipelines for a 3 tier MERN aaplication.
+This project contains 2 different CI/CD pipelines for a 3 tier MERN (MondoDB, Express, React, Node) aplication.
 
 # The Application
 
@@ -24,7 +24,7 @@ Functionalities:
 - Bcrypt used for password hashing.
 - Winston is used to provide error and request logging for easier maintenance
 
-This application was created as a part of Practicum by Yandex curriculum, a Web Developer Bootcamp I am currently enrolled in.
+This application was created as a part of the Practicum by Yandex curriculum, a Web Developer Bootcamp I am currently enrolled in.
 
 ## Running the Project Locally
 
@@ -53,32 +53,30 @@ Open http://localhost:3000 to view it in the browser. You will see the following
 
 **SSL Certificate -** Let's Encrypt
 
-# PIPELINE 1
+This project has 2 stages - **Stage 1** for Development and **Stage 2** for production.
 
-In this pipeline we will create a custom machine image in which we will bake in all the required software for our project. We will then use this image to spin up a google compute instance onto which we will deploy our application.
+**Stage 1 Tools**
 
-TECHNOLOGIES USED IN PIPELINE 1:
+| Tool           | Purpose                                                |
+| -------------- | ------------------------------------------------------ |
+| Circle CI      | CI/CD platform to automate build, test and deploy      |
+|                |                                                        |
+| Docker         | Bundles code and all its dependencies into a container |
+|                |                                                        |
+| Docker Compose | Lets you run multi-container applications              |
+|                |                                                        |
+| -------------- | ------------------------------------------------------ |
+
+## Stage 1
+
+<details>
+<summary><b>Use Circle CI for Continuous Intergration</b></summary><p>
 
 **Circle CI**
 
 [CircleCI](https://circleci.com/) is a cloud-based continuous intergratiom, continuous delivery tool.
 
-**Packer**
-
-[Packer](https://www.packer.io/) is a tool for creating custom machine images in an automated and repeatable way. When building images, Packer uses tools like Chef, Puppet, or Ansible to install and configure software within your Packer-made images. In this project, I have provided both a Bash shell script and an Ansible Playbook which can both be used to install the necessary software needed for the project.
-
-**Ansible**
-
-[Ansible](https://www.ansible.com/) is an automation tool that we will use in this project to install software onto our Packer image.
-
-**Bash Script**
-
-A Bash script is a plain text file which contains a series of commands and in the context of this project, contains commands to install software onto our Packer image.
-
-<details>
-<summary><b>Use Circle CI for Testing</b></summary><p>
-
-ensure that nothing is wrong in the build process. test to ensure that the application works as expected.
+In this project I use it to ensure that nothing is wrong in the build process and for testing to ensure that the application works as expected.
 
 1. Inside the backend directory we will write unit tests for some the Express routes. For testing HTTP calls we can use of a Node module called SuperTest and the testing framework Jest.
 
@@ -127,115 +125,9 @@ Since we are building a CD pipeline, we should have some tests in place.
 </p></details>
 
 <details>
-<summary><b>Build A Custom Machine Image Using Packer</b></summary><p>
-
-1. [Download and install Packer](https://www.packer.io/downloads)
-2. Packer has many different provisioners including Chef and Puppet. For this project, I have provided two different Packer templates - one using the using the [Windows Shell Provisioner](https://www.packer.io/docs/provisioners/windows-shell), and one using the [Ansible Provisioner](https://www.packer.io/docs/provisioners/ansible/ansible).
-
-Both the provided ansible playbook and Bash script do the same thing - install software like Nodejs and MongoDB onto our custom machine image that our application needs to run. You can find both templates inside the packer directory.
-
-If you chose to configure Packer using Ansible, you first need to install it.
-
-- [Download and Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#selecting-an-ansible-version-to-install)
-
-- [Download and Install Ansible on Windows](https://phoenixnap.com/kb/install-ansible-on-windows)
-
-3. Log into the Google Cloud Console and create a new project. Select your project and open it.
-
-4. Go to*IAM and ADMIN* and create a custom service account for Packer and assign it Compute Instance Admin (v1) & Service Account User roles and save.
-
-![](/images/serviceaccount.jpg)
-
-4. Generate a JSON Key and download it.
-
-5. Set the environment variable GOOGLE_APPLICATION_CREDENTIALS to point to the path where you saved your service account key.
-
-![](/images/setcreds.jpg)
-
-6. Create a packer template using JSON or HCL.
-
-7. Validate your template by running
-
-```
-  packer validate packer.json
-```
-
-8. Build the image
-
-```
-  packer build packer.json
-```
-
-![](/images/terminalimage.jpg)
-
-9. To check that your image has been successully built, you can try to create a virtual machine using the image
-
-![](/images/consoleimage.jpg)
-
-</p></details>
-
-<details>
-<summary><b>Create a Google Compute Instance Using Custom Packer Machine Image</b></summary><p>
-
-1. In order to use the custom machine image we just created using Packer, inside the GCP console, go to _Compute Engine_ and select _VM Instances_
-
-![](/images/menu.png)
-
-2. Click on _Create Instance_
-
-![](/images/create.png)
-
-3. Name your instance. In this case I've called mine _sca-packer-instance_.
-
-4. Under _Boot Disk_ click on _CHANGE_ .Go to _Custom Images_, select your project, and from the dropdown menu under _image_ select the machine image your created using Packer. Click _Select_
-
-![](/images/custom.png)
-
-5. Select any other desired configurations and click _Create_
-
-![](/images/vm.png)
-
-![](/images/instance1.png)
-
-6. SSH into the instance using the SSH button.
-
-![](/images/ssh1.png)
-
-7. GIT was pre-installed onto the instance thanks to Packer so now we can upload our application code onto the server using _git copy reponame_
-
-![](/images/git1.png)
-
-8. Run:
-
-```
-  npm install
-  nom start
-```
-
-</p></details>
-
-# PIPELINE 2
-
-This pipeline is centered around Docker. We will begin by creating Docker images for the frontend and the backend. For the database, we will pull a publicly available image of MongoDB from Docker Hub. We will then use Docker Compose to spin up the containers.
-
-TECHNOLOGIES USED IN PIPELINE 2:
-
-**Docker**
-
-[Docker](https://www.docker.com/) is a popular containerization tool. It allows you to package your apps code and all its dependencies into a light, portable container that can be run anywhere. For more on containerization, read my blog [Introduction to Containers and Containerization](https://deserie.hashnode.dev/introduction-to-containers-and-containerization)
-
-**Docker Compose**
-
-[Docker compose](https://docs.docker.com/compose/) is a tool that lets you run multi-container applications. In our case, each service - client, server, database, will run in its own container. We will use Docker Compose as part of our development workflow, but not part of the production workflow.
-
-**Jenkins**
-
-**Terraform**
-
-<details>
 <summary><b>Write Dockerfiles for the Frontend and Backend</b></summary><p>
 
-Add a Dockerfile to the directory to the root of the frontend, and the root of the backend, then configure the lines as described below.
+Add a Dockerfile to the root of the frontend, and the root of the backend, then configure the lines as described below.
 
 **Line 1:** "FROM" tells Docker what base image to use as a starting point. For this project, we will use the alpine version of Node since it is lightweight.
 
@@ -249,7 +141,7 @@ Add a Dockerfile to the directory to the root of the frontend, and the root of t
   WORKDIR /usr/src/app
 ```
 
-**Lines 3:** Copy the package.json file into the current working directory inside the container, represented by ".".
+**Lines 3:** Copy the package.json file into the current working directory inside the container, represented by "."
 
 ```
   COPY ./package.json ./
@@ -313,7 +205,15 @@ To confirm both images have been created run
 <details>
 <summary><b>Use Docker Compose in Development Workflow</b></summary><p>
 
-Create a Docker Compose file.
+I am using Docker Composeas a way of managing my application during development. It usually comes bundled together with Docker so if you installed Docker, you should already have Docker Compose on your sytem. To check this you can run:
+
+```
+  docker-compose --version
+```
+
+Docker Compose, builds on top of Docker to more easily manage a multi-container application such as ours.
+
+The following steps outline the Docker Compose file for this project..
 
 The first line specifies which version of the Docker Compose API we want to use
 
@@ -349,7 +249,7 @@ Lastly add a volume to enable persistence of the database data, so the data in t
 Now run the following command to start up all 3 containers, as well as attch the network and volume resources:
 
 ```
-  docker compose up
+  docker-compose up
 ```
 
 Execution of _docker-compose up_
@@ -361,6 +261,196 @@ Execution of _docker-compose up_
 Now if you go to localhost: 3000 you should be able to see the application running.
 
 ![](/images/compose2.png)
+
+To shutdown the application run:
+
+```
+  docker-compose down
+```
+
+</p></details>
+
+## Stage 2
+
+| Tool      | Purpose                                                               |
+| --------- | --------------------------------------------------------------------- |
+| Terraform | IaC tool to provision cloud resources and application infrastructure. |
+|           |                                                                       |
+| Cloud Run | Serverless platform from GCP to deploy and run containers.            |
+|           |                                                                       |
+| Kubectl   | The command-line tool for interacting with a Kubernetes cluster.      |
+|           |
+|           |
+|           |
+|           |
+
+<details>
+<summary><b>Use Jenkins to Build and Push Docker Images To Google Container Registry</b></summary><p>
+
+</p></details>
+
+<details>
+<summary><b>Use Terraform to Provision Google Cloud Run</b></summary><p>
+
+### Prerequisites
+
+- [Terraform CLI](https://www.terraform.io/downloads.html)
+
+- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
+
+1. Authenticate the SDK to Gcp by running:
+
+```
+  gcloud auth application-default login
+```
+
+2. Create a new project where Cloud Run will be deployed (use your own credentials):
+
+```
+  gcloud projects create "PROJECT_ID" --name="PROJECT_NAME"
+```
+
+3. Create a _main.tf_ file where we will put all our Terraform code.
+
+4. Add the requirements for Terraform and the Google provider
+
+```
+terraform {
+  required_version = ">= 0.14"
+
+  required_providers {
+    # Cloud Run support was added on 3.3.0
+    google = ">= 3.3"
+  }
+}
+```
+
+5. Add the Google provider configuration:
+
+```
+provider "google" {
+  project = "PROJECT_ID"
+}
+```
+
+6. Enable the Cloud Run API:
+
+```
+resource "google_project_service" "run_api" {
+  service = "run.googleapis.com"
+
+  disable_on_destroy = true
+}
+```
+
+7. Create the Cloud Run service:
+
+```
+resource "google_cloud_run_service" "run_service" {
+  name = "app"
+  location = "us-central1"
+
+  template {
+    spec {
+      containers {
+        image = "gcr.io/google-samples/hello-app:1.0"
+      }
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+
+  depends_on = [google_project_service.run_api]
+}
+```
+
+**name:** the name of your service.
+**location:** the region where your service will run.
+**image:** the Docker image that will be used to create the container. Make sure the images are in Google's Container Registry.
+**depends_on:** waits for a resource to be ready, in this case, the Cloud Run API.
+
+8. Allow authenticated users to use the service:
+
+```
+resource "google_cloud_run_service_iam_member" "run_all_users" {
+  service  = google_cloud_run_service.run_service.name
+  location = google_cloud_run_service.run_service.location
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+```
+
+9. Display the service URL in the Terraform command output:
+
+```
+output "service_url" {
+  value = google_cloud_run_service.run_service.status[0].url
+}
+```
+
+Now its time to deploy the infrastructure.
+
+10. Initialize the Terraform configuration:
+
+```
+  terraform init
+```
+
+![](/images/tinit.png)
+
+11. Verify the changes that will be applied:
+
+```
+  terraform plan
+```
+
+![](/images/tplan1.png)
+
+![](/images/tplan2.png)
+
+12. Apply all the changes:
+
+```
+  terraform apply
+```
+
+![](/images/cloudrun.png)
+
+### Updating the service
+
+We can also use Terraform to update our Clod Run infrastructure.
+
+When a configuration is changed or a new image is added, you can then redirect all the traffic to the new revision and start serving your updated application.
+
+To update the service, we have to change the value of the image property and pass it a new image:
+
+```
+resource "google_cloud_run_service" "run_service" {
+  name = "app"
+
+  # ...
+
+  template {
+    spec {
+      containers {
+        # Change `react-app:1.0` to `react-app:2.0` 👇
+        image = "gcr.io/google-samples/react-app:2.0"
+      }
+    }
+  }
+
+  # ...
+}
+```
+
+To deploy the changes run:
+
+```
+  terraform apply
+```
 
 </p></details>
 
@@ -426,6 +516,8 @@ https://www.jenkins.io/doc/book/pipeline/docker/
 <summary><b>Push Docker Images to Google Container Registry</b></summary><p>
 
 We have successfully built a Docker images react-app and api-server and now we need to push the images to Google Container Registry, so that they can be deployed from other locations, such as GKE.
+
+Google Container Registry is a private storage service for Docker images.
 
 First, configure the local Docker client to be able to authenticate to Container Registry
 
@@ -520,6 +612,16 @@ gcloud container clusters create-auto CLUSTER_NAME \
 </p></details>
 
 <details>
+<summary><b>Deploy App to Google Kubernetes Engine</b></summary><p>
+
+Kubernetes
+Until now we are only pushing Docker images to the registry, in order to run them we need to create some Kubernetes pods and services. We will have one Pod for each container, one for MongoDB, one for Node, and one for NGINX. Pods are usually declared using deployments.
+
+https://engineering.hexacta.com/automatic-deployment-of-multiple-docker-containers-to-google-container-engine-using-travis-e5d9e191d5ad
+
+</p></details>
+
+<details>
 <summary><b>Launch A GCP Virtual Machine from Custom Machine Image Using Terraform</b></summary><p>
 
 To see the machine image we've just built using Packer in action, we can provision a Virtual Machine using Terraform.
@@ -553,6 +655,24 @@ In order for Terraform to be able to provision the infrastructure needed for thi
 8. To confirm the instance was created, inside the GCP console, go to "Compute Engine" and you should see your instance insce the VM Instances dasboard.
 
 </p></details>
+
+If you chose to configure Packer using Ansible, you first need to install it.
+
+- [Download and Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#selecting-an-ansible-version-to-install)
+
+- [Download and Install Ansible on Windows](https://phoenixnap.com/kb/install-ansible-on-windows)
+
+3. Log into the Google Cloud Console and create a new project. Select your project and open it.
+
+4. Go to*IAM and ADMIN* and create a custom service account for Packer and assign it Compute Instance Admin (v1) & Service Account User roles and save.
+
+![](/images/serviceaccount.jpg)
+
+4. Generate a JSON Key and download it.
+
+5. Set the environment variable GOOGLE_APPLICATION_CREDENTIALS to point to the path where you saved your service account key.
+
+![](/images/setcreds.jpg)
 
 # Key Learnings
 
