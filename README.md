@@ -283,7 +283,7 @@ To shutdown the application run:
 <details>
 <summary><b>Push Docker Images to Google Container Registry</b></summary><p>
 
-We have successfully built a Docker images react-app and api-server and now we need to push the images to Google Container Registry, so that they can be deployed from other locations, such as GKE.
+We have successfully built a Docker images react-app and api-server and now we need to push the images to Google Container Registry, so that they can be deployed from other locations, such as Google Cloud Run.
 
 Google Container Registry is a private storage service for Docker images.
 
@@ -457,39 +457,6 @@ Now its time to deploy the infrastructure.
 ```
 
 ![](/images/cloudrun.png)
-
-### Updating the service
-
-We can also use Terraform to update our Clod Run infrastructure.
-
-When a configuration is changed or a new image is added, you can then redirect all the traffic to the new revision and start serving your updated application.
-
-To update the service, we have to change the value of the image property and pass it a new image:
-
-```
-resource "google_cloud_run_service" "run_service" {
-  name = "app"
-
-  # ...
-
-  template {
-    spec {
-      containers {
-        # Change `react-app:1.0` to `react-app:2.0` 👇
-        image = "gcr.io/google-samples/react-app:2.0"
-      }
-    }
-  }
-
-  # ...
-}
-```
-
-To deploy the changes run:
-
-```
-  terraform apply
-```
 
 </p></details>
 
