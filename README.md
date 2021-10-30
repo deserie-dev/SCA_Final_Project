@@ -10,6 +10,8 @@ Live Site deployed onto Google Cloud Platform:
 
 This is a 3-tier application with a frontend, API and database. Inside the app/ directory are seperate folders for the app's React based frontend, and Node, Express based backend.
 
+![](/images/mern.png)
+
 Functionalities:
 
 - Allows users to register and login using an email address and password. JWT have been used to ensure users don't have to re-enter their credentials when they revisit the site. Tokens are valid for 7 days.
