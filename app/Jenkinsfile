@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
 
   stages {
 
@@ -21,7 +21,7 @@ pipeline {
       }
     }
 
-    stage("Build Backend Docker Image") {
+    stage("Build Frontend Docker Image") {
       agent {
         dockerfile {
           filename "frontend/Dockerfile"
