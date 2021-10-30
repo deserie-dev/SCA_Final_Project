@@ -8,7 +8,7 @@ Live Site deployed onto Google Cloud Platform:
 
 [https://deserie.students.nomoreparties.site/signin](https://deserie.students.nomoreparties.site/signin)
 
-[API](https://api.deserie.students.nomoreparties.site/signin)
+[https://api.deserie.students.nomoreparties.site/signin](https://api.deserie.students.nomoreparties.site/signin)
 
 This is a 3-tier application with a frontend, API and database. Inside the app/ directory are seperate folders for the app's React based frontend, and Node, Express based backend.
 
@@ -53,6 +53,8 @@ Open http://localhost:3000 to view it in the browser. You will see the following
 
 **SSL Certificate -** Let's Encrypt
 
+---
+
 This project has 2 stages - **Stage 1** for Development and **Stage 2** for production.
 
 **Stage 1 Tools**
@@ -65,7 +67,6 @@ This project has 2 stages - **Stage 1** for Development and **Stage 2** for prod
 |                |                                                        |
 | Docker Compose | Lets you run multi-container applications              |
 |                |                                                        |
-| -------------- | ------------------------------------------------------ |
 
 ## Stage 1
 

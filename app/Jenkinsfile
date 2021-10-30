@@ -1,0 +1,36 @@
+pipeline {
+  agent none
+
+  stages {
+
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/deserie-dev/SCA_Final_Project.git'
+      }
+    }
+
+    stage("Build Backend Docker Image") {
+      agent {
+        dockerfile {
+          filename "backend/Dockerfile"
+        }
+      }
+
+      steps {
+        sh "cd backend"
+      }
+    }
+
+    stage("Build Backend Docker Image") {
+      agent {
+        dockerfile {
+          filename "frontend/Dockerfile"
+        }
+      }
+
+      steps {
+        sh "cd frontend"
+      }
+    }
+  }
+}
