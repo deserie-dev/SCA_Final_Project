@@ -1,7 +1,5 @@
 # She Code Africa Final Project
 
-This project contains 2 different CI/CD pipelines for a 3 tier MERN (MondoDB, Express, React, Node) aplication.
-
 # The Application
 
 Live Site deployed onto Google Cloud Platform:
