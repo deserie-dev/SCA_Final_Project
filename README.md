@@ -322,8 +322,6 @@ For the MongoDB database container, we will pull a publicly available mongo imag
 
 ![](/images/push3.png)
 
-</p></details>
-
 8. Click Create.
 
 ![](/images/clusters.png)
