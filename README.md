@@ -24,7 +24,7 @@ Functionalities:
 - Bcrypt used for password hashing.
 - Winston is used to provide error and request logging for easier maintenance
 
-This application was created as a part of the Practicum by Yandex curriculum, a Web Developer Bootcamp I am currently enrolled in.
+This application was created as a part of the Practicum by Yandex curriculum, a Web Developer Bootcamp I am currently enrolled in. You can find my original repo for this project [here](https://github.com/deserie-dev/react-around-api-full).
 
 ## Running the Project Locally
 
@@ -75,9 +75,9 @@ This project has 2 stages - **Stage 1** for Development and **Stage 2** for prod
 
 **Circle CI**
 
-[CircleCI](https://circleci.com/) is a cloud-based continuous intergratiom, continuous delivery tool.
+[CircleCI](https://circleci.com/) is a cloud-based Continuous Intergratiom, continuous delivery tool. In this project I use it to ensure that nothing is wrong in the build process and for testing to ensure that the application works as expected.
 
-In this project I use it to ensure that nothing is wrong in the build process and for testing to ensure that the application works as expected.
+Continuous Integration means pushing small, frequent changes to the repo, integrating changes continuously. One of CI's best practices is to test the changes that you're making to your code. You can do this with unit tests or intergration tests.
 
 1. Inside the backend directory we will write unit tests for some the Express routes. For testing HTTP calls we can use of a Node module called SuperTest and the testing framework Jest.
 
